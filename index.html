@@ -247,7 +247,7 @@ img,svg{display:block}
   <div class="hero">
     <div class="hdate">2026 / 04 / 12（Sun）</div>
     <div class="htitle" id="h-title">🫖 茶壺山登山規劃</div>
-    <div class="hsub" id="h-sub">勸濟堂 → 茶壺山頂 → 勸濟堂 ｜ 7 人同行</div>
+    <div class="hsub" id="h-sub">勸濟堂 → 茶壺山頂 → 勸濟堂</div>
     <div class="chips">
       <span class="chip" id="c1">📍 新北市瑞芳區</span>
       <span class="chip" id="c2">⏱ 約 2 小時來回</span>
@@ -358,7 +358,7 @@ var lang = 'zh';
 var I = {
   zh: {
     'topbar-title':'茶壺山 4/12','n-welcome':'總覽','n-weather':'天氣','n-bus':'公車','n-itin':'行程','n-gear':'裝備','n-map':'地圖',
-    'h-title':'🫖 茶壺山登山規劃','h-sub':'勸濟堂 → 茶壺山頂 → 勸濟堂 ｜ 7 人同行',
+    'h-title':'🫖 茶壺山登山規劃','h-sub':'勸濟堂 → 茶壺山頂 → 勸濟堂',
     'c1':'📍 新北市瑞芳區','c2':'⏱ 約 2 小時來回','c3':'🚌 1062 直達','c4':'🟢 適合新手',
     'wc-wx':'天氣預報','wc-wxd':'Open-Meteo 即時','wc-bus':'公車時刻','wc-busd':'前後各3班共7班',
     'wc-itin':'路線行程','wc-itind':'步道＋動態時刻','wc-gear':'裝備清單','wc-geard':'個人＋團隊必備',
@@ -386,7 +386,7 @@ var I = {
   },
   en: {
     'topbar-title':'Teapot Mtn 4/12','n-welcome':'Home','n-weather':'Weather','n-bus':'Bus','n-itin':'Plan','n-gear':'Gear','n-map':'Map',
-    'h-title':'🫖 Teapot Mountain Hike','h-sub':'Kuanji Temple → Summit → Return | 7 People',
+    'h-title':'🫖 Teapot Mountain Hike','h-sub':'Kuanji Temple → Summit → Return',
     'c1':'📍 Ruifang, New Taipei','c2':'⏱ ~2 hrs round trip','c3':'🚌 Bus 1062 direct','c4':'🟢 Beginner-friendly',
     'wc-wx':'Weather','wc-wxd':'Live via Open-Meteo','wc-bus':'Bus Times','wc-busd':'3 before/after = 7 total',
     'wc-itin':'Route Plan','wc-itind':'Trail + Dynamic Times','wc-gear':'Gear List','wc-geard':'Personal + Group Items',
@@ -646,7 +646,7 @@ function renderWx(data) {
 
 /* ── ITINERARY ── */
 var TRAIL = [
-  {icon:'🏙',zh_p:'台北集合出發',en_p:'Gather in Taipei',zh_d:'捷運忠孝復興站集合，確認 7 人到齊、裝備完整。',en_d:'Meet at MRT Zhongxiao Fuxing. Confirm all 7 and gear.',dist:'—',offset:-60,dur_zh:'',dur_en:''},
+  {icon:'🏙',zh_p:'台北集合出發',en_p:'Gather in Taipei',zh_d:'捷運忠孝復興站集合，確認裝備完整。',en_d:'Meet at MRT Zhongxiao Fuxing. Confirm everyone and gear.',dist:'—',offset:-60,dur_zh:'',dur_en:''},
   {icon:'🚌',zh_p:'搭 1062 公車出發',en_p:'Board Bus 1062',zh_d:'忠孝復興站出發往瑞芳金瓜石，車程約 1.5 小時。',en_d:'Depart to Ruifang/Jinguashi (~90 min).',dist:'—',offset:0,dur_zh:'車程約90min',dur_en:'~90 min ride'},
   {icon:'⛩️',zh_p:'抵達勸濟堂站',en_p:'Arrive Kuanji Temple',zh_d:'下車後使用廁所、補水。廟右側步行 3 分鐘至登山口。',en_d:'Use restrooms, fill water. Trailhead 3 min walk.',dist:'0 km',offset:95,dur_zh:'',dur_en:''},
   {icon:'🥾',zh_p:'登山口出發',en_p:'Start Hiking',zh_d:'初段平緩柏油路與碎石路，適合暖身。',en_d:'Gentle start — paved and gravel path. Good warm-up.',dist:'0 km',offset:100,dur_zh:'',dur_en:''},
