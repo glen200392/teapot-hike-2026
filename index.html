@@ -167,6 +167,13 @@ img,svg{display:block}
 .minfo strong{color:var(--pri)}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+@media(min-width:520px){
+  html{background:var(--surf2)}
+  [data-theme="dark"] html{background:#0e0d0c}
+  body{max-width:480px;margin:0 auto;box-shadow:0 0 0 1px var(--bdr),0 8px 48px rgba(0,0,0,.14)}
+  .bnav{left:50%;transform:translateX(-50%);width:480px;border-radius:var(--rad) var(--rad) 0 0}
+}
 </style>
 </head>
 <body>
