@@ -681,7 +681,7 @@ function renderItin() {
       var ts = addMin(dep, s.offset);
       var p2 = ts.split(':');
       var sm = parseInt(p2[0])*60 + parseInt(p2[1]);
-      var isNow = isDay && sm <= curMin && (sm+40) > curMin;
+      var isNow = sm <= curMin && (sm+40) > curMin;
       var isLast = i === TRAIL.length - 1;
       var place = lang==='zh' ? s.zh_p : s.en_p;
       var desc = lang==='zh' ? s.zh_d : s.en_d;
