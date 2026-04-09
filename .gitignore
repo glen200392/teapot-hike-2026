@@ -1,0 +1,14 @@
+# General
+.env
+.env.*
+*.key
+*.pem
+*credentials*
+*.log
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

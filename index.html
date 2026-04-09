@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-TW" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>茶壺山 4/12 登山規劃</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f6f2;--surf:#fff;--surf2:#f3f0ec;--bdr:#e0ddd8;
+  --txt:#28251d;--mut:#7a7974;
+  --pri:#01696f;--prih:#0c4e54;--prib:#e6f2f2;
+  --grn:#22c55e;--rad:12px;--rs:8px;
+  --shd:0 2px 12px rgba(0,0,0,.08);--f:'Noto Sans TC',sans-serif;
+}
+[data-theme="dark"]{
+  --bg:#171614;--surf:#1c1b19;--surf2:#252422;--bdr:#333;
+  --txt:#cdccca;--mut:#797876;
+  --pri:#4f98a3;--prih:#227f8b;--prib:#1a3335;
+  --shd:0 2px 12px rgba(0,0,0,.4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:none;scroll-behavior:smooth}
+body{font-family:var(--f);font-size:15px;background:var(--bg);color:var(--txt);min-height:100dvh;padding-bottom:72px}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+a{color:var(--pri);text-decoration:none}
+img,svg{display:block}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 14px;height:50px;background:var(--surf);border-bottom:1px solid var(--bdr);box-shadow:var(--shd)}
+.tl{display:flex;align-items:center;gap:7px;font-weight:700;font-size:.93rem}
+.ta{display:flex;align-items:center;gap:5px}
+.ibtn{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--surf2);color:var(--mut);transition:.15s}
+.ibtn:hover{background:var(--prib);color:var(--pri)}
+.lpill{display:flex;align-items:center;gap:4px;font-size:.6rem;color:var(--mut);background:var(--surf2);padding:3px 7px;border-radius:99px;border:1px solid var(--bdr)}
+.ldot{width:6px;height:6px;border-radius:50%;background:var(--grn);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* BOTTOM NAV */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:100;background:var(--surf);border-top:1px solid var(--bdr);padding-bottom:env(safe-area-inset-bottom,0)}
+.bni{display:grid;grid-template-columns:repeat(6,1fr)}
+.bi{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 2px 5px;border:none;background:none;font:inherit;color:var(--mut);font-size:.58rem;cursor:pointer;transition:.15s;min-height:44px;justify-content:center}
+.bi.active,.bi:hover{color:var(--pri)}
+.bicon{font-size:1.2rem;line-height:1}
+
+/* PAGES */
+.page{display:none;padding:14px 14px 20px;animation:fd .18s ease}
+.page.active{display:block}
+@keyframes fd{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+
+/* SHARED */
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.st{font-size:1.05rem;font-weight:700}
+.badge{display:inline-block;padding:2px 7px;border-radius:99px;font-size:.67rem;font-weight:500;line-height:1.4}
+.bg-g{background:#dcfce7;color:#166534}
+.bg-a{background:#fef3c7;color:#92400e}
+.bg-b{background:#dbeafe;color:#1e40af}
+.bg-s{background:#fef9c3;color:#854d0e}
+[data-theme="dark"] .bg-g{background:#166534;color:#dcfce7}
+[data-theme="dark"] .bg-a{background:#92400e;color:#fef3c7}
+[data-theme="dark"] .bg-b{background:#1e40af;color:#dbeafe}
+[data-theme="dark"] .bg-s{background:#854d0e;color:#fef9c3}
+.loading{display:flex;align-items:center;justify-content:center;gap:7px;padding:28px;color:var(--mut);font-size:.79rem}
+.spin{width:16px;height:16px;border:2px solid var(--bdr);border-top-color:var(--pri);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+.err{background:#fef2f2;border:1px solid #fecaca;border-radius:var(--rs);padding:12px;font-size:.79rem;color:#991b1b;text-align:center;line-height:1.8}
+[data-theme="dark"] .err{background:#3b0f0f;border-color:#7f1d1d;color:#fca5a5}
+
+/* WELCOME */
+.hero{background:linear-gradient(135deg,var(--pri),var(--prih));border-radius:var(--rad);padding:20px 17px;color:#fff;margin-bottom:13px;position:relative;overflow:hidden}
+.hero::before{content:'🫖';position:absolute;right:-6px;bottom:-6px;font-size:4rem;opacity:.12;pointer-events:none}
+.hdate{font-size:.74rem;opacity:.8;margin-bottom:4px}
+.htitle{font-size:1.38rem;font-weight:700;margin-bottom:5px;line-height:1.3}
+.hsub{font-size:.8rem;opacity:.85;margin-bottom:11px;line-height:1.55}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{background:rgba(255,255,255,.2);border-radius:99px;padding:3px 9px;font-size:.71rem;white-space:nowrap}
+.wg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.wc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rad);padding:12px;cursor:pointer;transition:.15s;text-align:center;min-height:44px}
+.wc:hover{background:var(--prib);border-color:var(--pri)}
+.wci{font-size:1.55rem;margin-bottom:4px}
+.wct{font-size:.81rem;font-weight:600;margin-bottom:2px}
+.wcd{font-size:.67rem;color:var(--mut)}
+.alert{background:var(--prib);border:1px solid var(--pri);border-radius:var(--rs);padding:11px 12px;margin-bottom:12px}
+.atitle{font-weight:700;font-size:.87rem;margin-bottom:6px;color:var(--pri)}
+.aitem{font-size:.77rem;line-height:1.7;padding-left:12px;position:relative}
+.aitem::before{content:'•';position:absolute;left:3px;color:var(--pri)}
+
+/* WEATHER */
+.wxg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.wxbig{background:linear-gradient(135deg,var(--pri),var(--prih));color:#fff;border-radius:var(--rad);padding:15px;text-align:center}
+.wxe{font-size:2.6rem;margin-bottom:2px}
+.wxt{font-size:1.8rem;font-weight:700}
+.wxd{font-size:.77rem;opacity:.85;margin-top:2px}
+.wxms{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.wxm{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rs);padding:9px;text-align:center}
+.wxml{font-size:.63rem;color:var(--mut);margin-bottom:2px}
+.wxmv{font-size:.95rem;font-weight:700}
+.wxh{margin-top:12px}
+.wxht{font-size:.79rem;font-weight:600;margin-bottom:6px;color:var(--mut)}
+.wxhl{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.wxhr{flex-shrink:0;background:var(--surf2);border-radius:var(--rs);padding:6px 9px;text-align:center;min-width:55px}
+.wxhrt{font-size:.63rem;color:var(--mut)}
+.wxhre{font-size:1.1rem;margin:3px 0}
+.wxhrc{font-size:.8rem;font-weight:600}
+.wxhrr{font-size:.62rem;color:#3b82f6}
+
+/* BUS */
+.tabs{display:flex;gap:6px;margin-bottom:12px}
+.tab{flex:1;padding:8px;border-radius:var(--rs);border:1px solid var(--bdr);background:var(--surf2);font-size:.78rem;font-weight:500;transition:.15s;color:var(--mut);min-height:44px}
+.tab.on{background:var(--pri);color:#fff;border-color:var(--pri)}
+.tp{display:none}.tp.on{display:block}
+.bt{width:100%;border-collapse:collapse;font-size:.79rem;margin-bottom:8px}
+.bt th{padding:6px 4px;text-align:left;font-size:.68rem;color:var(--mut);border-bottom:1px solid var(--bdr);font-weight:500}
+.bt td{padding:8px 4px;border-bottom:1px solid var(--bdr);vertical-align:middle}
+.bt tr:last-child td{border-bottom:none}
+.bt .rn td{background:rgba(1,105,111,.07)}
+.bt .rp td{opacity:.4}
+.bt .rr td:first-child{font-weight:700}
+.bnote{font-size:.69rem;color:var(--mut);line-height:1.6;margin-bottom:11px}
+.elink{display:flex;align-items:center;gap:7px;padding:10px 12px;background:var(--surf2);border-radius:var(--rs);font-size:.79rem;color:var(--txt);border:1px solid var(--bdr);margin-bottom:6px;transition:.15s;min-height:44px}
+.elink:hover{border-color:var(--pri);color:var(--pri)}
+
+/* ITINERARY */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+.stat{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rs);padding:8px 5px;text-align:center}
+.sl{font-size:.64rem;color:var(--mut);margin-bottom:3px}
+.sv{font-size:.88rem;font-weight:700;color:var(--pri)}
+.sbar{display:flex;align-items:center;gap:7px;margin-bottom:12px;flex-wrap:wrap}
+.sbar label{font-size:.77rem;color:var(--mut)}
+.sbar select{border:1px solid var(--bdr);border-radius:var(--rs);padding:6px 8px;background:var(--surf);font:inherit;font-size:.79rem;color:var(--txt);min-height:36px}
+.itin{display:flex;flex-direction:column}
+.ir{display:grid;grid-template-columns:54px 28px 1fr;align-items:start}
+.irl{text-align:right;padding-top:4px;padding-right:6px}
+.irt{font-size:.72rem;font-weight:600;color:var(--pri)}
+.irid{font-size:.62rem;color:var(--mut);margin-top:1px}
+.irc{display:flex;flex-direction:column;align-items:center}
+.idot{width:26px;height:26px;border-radius:50%;background:var(--surf2);border:2px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;z-index:1}
+.iline{flex:1;width:2px;background:var(--bdr);min-height:24px}
+.irr{padding:2px 0 16px 8px}
+.irp{font-size:.83rem;font-weight:600;line-height:1.3;margin-bottom:2px}
+.irm{font-size:.67rem;color:var(--mut);margin-bottom:2px}
+.ird2{font-size:.74rem;color:var(--mut);line-height:1.5}
+.ir.now .idot{background:var(--pri);border-color:var(--pri);color:#fff}
+.ir.now .irt{color:var(--pri)}
+
+/* GEAR */
+.gsec{margin-bottom:14px}
+.gtitle{font-size:.85rem;font-weight:700;padding:7px 10px;background:var(--surf2);border-radius:var(--rs);margin-bottom:6px;border:1px solid var(--bdr)}
+.gg{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.gi{display:flex;align-items:center;gap:6px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rs);padding:8px;font-size:.77rem;cursor:pointer;transition:.15s;min-height:40px}
+.gi:hover{border-color:var(--pri)}
+.gi.done{background:var(--prib);border-color:var(--pri);color:var(--pri)}
+.gi.done .gt{text-decoration:line-through;opacity:.6}
+.ge{font-size:1rem;flex-shrink:0;width:20px;text-align:center}
+.greset{font-size:.71rem;color:var(--mut);padding:3px 8px;border:1px solid var(--bdr);border-radius:99px;background:var(--surf2)}
+
+/* MAP */
+.mlinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.ml{display:flex;flex-direction:column;align-items:center;gap:5px;background:var(--surf);border:1px solid var(--bdr);border-radius:var(--rad);padding:13px 8px;text-align:center;transition:.15s;min-height:80px;justify-content:center}
+.ml:hover{background:var(--prib);border-color:var(--pri)}
+.mli{font-size:1.6rem}
+.mll{font-size:.79rem;font-weight:600;color:var(--txt);margin-top:2px}
+.mld{font-size:.67rem;color:var(--mut)}
+.minfo{background:var(--surf2);border-radius:var(--rs);padding:12px;font-size:.79rem;line-height:1.9;border:1px solid var(--bdr)}
+.minfo strong{color:var(--pri)}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="tl">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l4-8 4 5 3-3 4 6"/><path d="M22 17H2"/></svg>
+    <span id="topbar-title">茶壺山 4/12</span>
+  </div>
+  <div class="ta">
+    <button class="ibtn" id="langBtn" aria-label="語言切換 EN/中" title="切換語言">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+    </button>
+    <button class="ibtn" id="themeBtn" aria-label="切換主題">
+      <svg id="ico-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg id="ico-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <div class="lpill" aria-live="polite"><span class="ldot"></span><span id="gts" style="font-size:.59rem">--</span></div>
+  </div>
+</header>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav" aria-label="主選單">
+  <div class="bni">
+    <button class="bi active" data-pg="welcome" onclick="goPage('welcome')"><span class="bicon" aria-hidden="true">🏠</span><span id="n-welcome">總覽</span></button>
+    <button class="bi" data-pg="weather" onclick="goPage('weather')"><span class="bicon" aria-hidden="true">☀️</span><span id="n-weather">天氣</span></button>
+    <button class="bi" data-pg="bus" onclick="goPage('bus')"><span class="bicon" aria-hidden="true">🚌</span><span id="n-bus">公車</span></button>
+    <button class="bi" data-pg="itin" onclick="goPage('itin')"><span class="bicon" aria-hidden="true">📅</span><span id="n-itin">行程</span></button>
+    <button class="bi" data-pg="gear" onclick="goPage('gear')"><span class="bicon" aria-hidden="true">🎒</span><span id="n-gear">裝備</span></button>
+    <button class="bi" data-pg="map" onclick="goPage('map')"><span class="bicon" aria-hidden="true">🗺</span><span id="n-map">地圖</span></button>
+  </div>
+</nav>
+
+<main>
+
+<!-- WELCOME -->
+<div class="page active" id="page-welcome">
+  <div class="hero">
+    <div class="hdate">2026 / 04 / 12（Sun）</div>
+    <div class="htitle" id="h-title">🫖 茶壺山登山規劃</div>
+    <div class="hsub" id="h-sub">勸濟堂 → 茶壺山頂 → 勸濟堂 ｜ 7 人同行</div>
+    <div class="chips">
+      <span class="chip" id="c1">📍 新北市瑞芳區</span>
+      <span class="chip" id="c2">⏱ 約 2 小時來回</span>
+      <span class="chip" id="c3">🚌 1062 直達</span>
+      <span class="chip" id="c4">🟢 適合新手</span>
+    </div>
+  </div>
+  <div class="wg">
+    <div class="wc" onclick="goPage('weather')"><div class="wci">☀️</div><div class="wct" id="wc-wx">天氣預報</div><div class="wcd" id="wc-wxd">Open-Meteo 即時</div></div>
+    <div class="wc" onclick="goPage('bus')"><div class="wci">🚌</div><div class="wct" id="wc-bus">公車時刻</div><div class="wcd" id="wc-busd">前後各3班共7班</div></div>
+    <div class="wc" onclick="goPage('itin')"><div class="wci">📅</div><div class="wct" id="wc-itin">路線行程</div><div class="wcd" id="wc-itind">步道＋動態時刻</div></div>
+    <div class="wc" onclick="goPage('gear')"><div class="wci">🎒</div><div class="wct" id="wc-gear">裝備清單</div><div class="wcd" id="wc-geard">個人＋團隊必備</div></div>
+    <div class="wc" onclick="goPage('map')"><div class="wci">🗺</div><div class="wct" id="wc-map">地圖導航</div><div class="wcd" id="wc-mapd">Google Maps連結</div></div>
+  </div>
+  <div class="alert" role="note">
+    <div class="atitle" id="a-title">📢 出發前注意</div>
+    <div class="aitem" id="a1">週日 1062 推薦 08:30 班，建議 13:05 前搭回程</div>
+    <div class="aitem" id="a2">登山口在勸濟堂廣場右側，步行約 3 分鐘</div>
+    <div class="aitem" id="a3">岩石地形多，部分路段需手腳並用，建議穿防滑鞋</div>
+    <div class="aitem" id="a4">每人至少帶 1.5L 水 + 行動電源 + 簡易急救</div>
+  </div>
+</div>
+
+<!-- WEATHER -->
+<div class="page" id="page-weather">
+  <div class="sh">
+    <div class="st" id="s-weather">☀️ 天氣預報</div>
+    <div class="lpill"><span class="ldot"></span><span id="wx-ts">--</span></div>
+  </div>
+  <div id="wx-body"><div class="loading"><span class="spin"></span><span id="l-loading">載入中…</span></div></div>
+</div>
+
+<!-- BUS -->
+<div class="page" id="page-bus">
+  <div class="sh">
+    <div class="st" id="s-bus">🚌 公車時刻</div>
+    <div class="lpill"><span class="ldot"></span><span id="bus-ts">--</span></div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab on" id="tab-go" role="tab" aria-selected="true" onclick="switchTab('go')"><span id="t-go">➡️ 往程（往勸濟堂）</span></button>
+    <button class="tab" id="tab-bk" role="tab" aria-selected="false" onclick="switchTab('bk')"><span id="t-bk">⬅️ 回程（返台北）</span></button>
+  </div>
+  <div class="tp on" id="pane-go" role="tabpanel"><div id="body-go"><div class="loading"><span class="spin"></span>載入中…</div></div></div>
+  <div class="tp" id="pane-bk" role="tabpanel"><div id="body-bk"><div class="loading"><span class="spin"></span>載入中…</div></div></div>
+  <div style="margin-top:12px">
+    <a class="elink" href="https://yunbus.tw" target="_blank" rel="noopener noreferrer">🔴 <span id="bl-yun">雲端公車即時動態（1062）</span></a>
+    <a class="elink" href="https://pda5284.gov.taipei/MQS/stop.jsp?sid=165821" target="_blank" rel="noopener noreferrer">📡 <span id="bl-rt">勸濟堂站到站時間</span></a>
+    <a class="elink" href="https://pda5284.gov.taipei/MQS/route.jsp?rid=17937" target="_blank" rel="noopener noreferrer">🚌 <span id="bl-965">965 台灣好行即時</span></a>
+  </div>
+</div>
+
+<!-- ITINERARY -->
+<div class="page" id="page-itin">
+  <div class="sh">
+    <div class="st" id="s-itin">📅 路線行程</div>
+    <div class="lpill"><span class="ldot"></span><span id="itin-ts">--</span></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="sl" id="si-dist">全程距離</div><div class="sv">3.2km</div></div>
+    <div class="stat"><div class="sl" id="si-time">來回時間</div><div class="sv" id="si-tv">~2小時</div></div>
+    <div class="stat"><div class="sl" id="si-elev">海拔</div><div class="sv">588m</div></div>
+    <div class="stat"><div class="sl" id="si-diff">難度</div><div class="sv" id="si-dv">初中級</div></div>
+  </div>
+  <div class="sbar">
+    <label id="si-pick" for="sched-sel">選擇搭乘班次：</label>
+    <select id="sched-sel" onchange="renderItin()">
+      <option value="08:30">1062 08:30 ⭐</option>
+      <option value="09:10">1062 09:10</option>
+      <option value="07:50">1062 07:50（最早）</option>
+      <option value="09:30">1062 09:30</option>
+      <option value="10:00">1062 10:00</option>
+    </select>
+  </div>
+  <div class="itin" id="itin-body"></div>
+</div>
+
+<!-- GEAR -->
+<div class="page" id="page-gear">
+  <div class="sh">
+    <div class="st" id="s-gear">🎒 裝備清單</div>
+    <button class="greset" id="gear-reset" onclick="resetGear()">重置</button>
+  </div>
+  <div id="gear-body"></div>
+</div>
+
+<!-- MAP -->
+<div class="page" id="page-map">
+  <div class="sh"><div class="st" id="s-map">🗺 地圖導航</div></div>
+  <div class="mlinks">
+    <a class="ml" href="https://maps.google.com/?q=勸濟堂,瑞芳,新北市" target="_blank" rel="noopener noreferrer"><div class="mli">🏛</div><div class="mll" id="ml-1">勸濟堂導航</div><div class="mld">Google Maps</div></a>
+    <a class="ml" href="https://maps.google.com/?q=茶壺山,瑞芳,新北市" target="_blank" rel="noopener noreferrer"><div class="mli">⛰️</div><div class="mll" id="ml-2">茶壺山山頂</div><div class="mld">Google Maps</div></a>
+    <a class="ml" href="https://hiking.biji.co/index.php?q=review&act=info&review_id=37685" target="_blank" rel="noopener noreferrer"><div class="mli">📝</div><div class="mll" id="ml-3">健行筆記攻略</div><div class="mld" id="ml-3d">完整步道資訊</div></a>
+    <a class="ml" href="https://www.cwa.gov.tw/V8/C/W/Town/Town.html?TID=1010310" target="_blank" rel="noopener noreferrer"><div class="mli">🌤</div><div class="mll" id="ml-4">中央氣象署</div><div class="mld" id="ml-4d">瑞芳天氣預報</div></a>
+  </div>
+  <div class="minfo" id="map-info">
+    <strong>📍 勸濟堂</strong> — 新北市瑞芳區金瓜石（巴士終點站）<br>
+    <strong>🚶 登山口</strong> — 廟右側步行約 3 分鐘，有指標<br>
+    <strong>🅿️ 停車</strong> — 勸濟堂周邊有收費停車場<br>
+    <strong>🚽 廁所</strong> — 勸濟堂廟旁、山頂附近均有<br>
+    <strong>🛒 補給</strong> — 金瓜石市區有便利商店
+  </div>
+</div>
+</main>
+
+<script>
+/* ── LANG ── */
+var lang = 'zh';
+var I = {
+  zh: {
+    'topbar-title':'茶壺山 4/12','n-welcome':'總覽','n-weather':'天氣','n-bus':'公車','n-itin':'行程','n-gear':'裝備','n-map':'地圖',
+    'h-title':'🫖 茶壺山登山規劃','h-sub':'勸濟堂 → 茶壺山頂 → 勸濟堂 ｜ 7 人同行',
+    'c1':'📍 新北市瑞芳區','c2':'⏱ 約 2 小時來回','c3':'🚌 1062 直達','c4':'🟢 適合新手',
+    'wc-wx':'天氣預報','wc-wxd':'Open-Meteo 即時','wc-bus':'公車時刻','wc-busd':'前後各3班共7班',
+    'wc-itin':'路線行程','wc-itind':'步道＋動態時刻','wc-gear':'裝備清單','wc-geard':'個人＋團隊必備',
+    'wc-map':'地圖導航','wc-mapd':'Google Maps連結',
+    'a-title':'📢 出發前注意',
+    'a1':'週日 1062 推薦 08:30 班，建議 13:05 前搭回程',
+    'a2':'登山口在勸濟堂廣場右側，步行約 3 分鐘',
+    'a3':'岩石地形多，部分路段需手腳並用，建議穿防滑鞋',
+    'a4':'每人至少帶 1.5L 水 + 行動電源 + 簡易急救',
+    's-weather':'☀️ 天氣預報','s-bus':'🚌 公車時刻','s-itin':'📅 路線行程','s-gear':'🎒 裝備清單','s-map':'🗺 地圖導航',
+    't-go':'➡️ 往程（往勸濟堂）','t-bk':'⬅️ 回程（返台北）',
+    'bl-yun':'雲端公車即時動態（1062）','bl-rt':'勸濟堂站到站時間','bl-965':'965 台灣好行即時',
+    'si-dist':'全程距離','si-time':'來回時間','si-tv':'~2小時','si-elev':'海拔','si-diff':'難度','si-dv':'初中級',
+    'si-pick':'選擇搭乘班次：',
+    'ml-1':'勸濟堂導航','ml-2':'茶壺山山頂','ml-3':'健行筆記攻略','ml-3d':'完整步道資訊','ml-4':'中央氣象署','ml-4d':'瑞芳天氣預報',
+    'l-loading':'載入中…','gear-reset':'重置',
+    'col-dep':'發車','col-dir':'方向','col-st':'狀態','col-note':'備注',
+    'st-past':'已過','st-next':'即將出發','st-up':'即將',
+    'dest-go':'→ 勸濟堂','dest-bk':'→ 忠孝復興',
+    'bus-note':'週日 1062（基隆客運）。顯示前後各3班共最多7班，以官方公告為準。',
+    'wx-feels':'體感溫度','wx-rain':'降雨機率','wx-wind':'風速','wx-humid':'濕度',
+    'wx-htitle':'📊 登山時段逐小時（08:00–14:00）',
+    'wx-err':'天氣暫時無法取得，請查氣象局',
+    'map-info-html':'<strong>📍 勸濟堂</strong> — 新北市瑞芳區金瓜石（巴士終點站）<br><strong>🚶 登山口</strong> — 廟右側步行約 3 分鐘，有指標<br><strong>🅿️ 停車</strong> — 勸濟堂周邊有收費停車場<br><strong>🚽 廁所</strong> — 勸濟堂廟旁、山頂附近均有<br><strong>🛒 補給</strong> — 金瓜石市區有便利商店'
+  },
+  en: {
+    'topbar-title':'Teapot Mtn 4/12','n-welcome':'Home','n-weather':'Weather','n-bus':'Bus','n-itin':'Plan','n-gear':'Gear','n-map':'Map',
+    'h-title':'🫖 Teapot Mountain Hike','h-sub':'Kuanji Temple → Summit → Return | 7 People',
+    'c1':'📍 Ruifang, New Taipei','c2':'⏱ ~2 hrs round trip','c3':'🚌 Bus 1062 direct','c4':'🟢 Beginner-friendly',
+    'wc-wx':'Weather','wc-wxd':'Live via Open-Meteo','wc-bus':'Bus Times','wc-busd':'3 before/after = 7 total',
+    'wc-itin':'Route Plan','wc-itind':'Trail + Dynamic Times','wc-gear':'Gear List','wc-geard':'Personal + Group Items',
+    'wc-map':'Navigation','wc-mapd':'Google Maps Links',
+    'a-title':'📢 Before You Go',
+    'a1':'Recommended: 08:30 bus going, 13:05 return',
+    'a2':'Trailhead is 3 min walk right of Kuanji Temple',
+    'a3':'Rocky terrain — some sections require hands and feet',
+    'a4':'Each person: 1.5L water + power bank + basic first aid',
+    's-weather':'☀️ Weather Forecast','s-bus':'🚌 Bus Schedule','s-itin':'📅 Route Plan','s-gear':'🎒 Gear List','s-map':'🗺 Navigation',
+    't-go':'➡️ Outbound (to Kuanji Temple)','t-bk':'⬅️ Return (to Taipei)',
+    'bl-yun':'Yunbus Live (Bus 1062)','bl-rt':'Kuanji Temple Stop Live','bl-965':'Bus 965 Live Schedule',
+    'si-dist':'Total Distance','si-time':'Round Trip','si-tv':'~2 hrs','si-elev':'Elevation','si-diff':'Difficulty','si-dv':'Beg-Int',
+    'si-pick':'Choose departure bus:',
+    'ml-1':'Kuanji Temple Nav','ml-2':'Teapot Mtn Summit','ml-3':'Hiking Notes Guide','ml-3d':'Full trail info','ml-4':'CWA Weather','ml-4d':'Ruifang forecast',
+    'l-loading':'Loading…','gear-reset':'Reset',
+    'col-dep':'Departure','col-dir':'Direction','col-st':'Status','col-note':'Note',
+    'st-past':'Passed','st-next':'Boarding Now','st-up':'Upcoming',
+    'dest-go':'→ Kuanji Temple','dest-bk':'→ Zhongxiao Fuxing',
+    'bus-note':'Sunday Bus 1062 (Keelung Bus). Shows 3 before + next + 3 after (max 7). Verify with official timetable.',
+    'wx-feels':'Feels Like','wx-rain':'Rain Chance','wx-wind':'Wind','wx-humid':'Humidity',
+    'wx-htitle':'📊 Hourly Forecast (08:00–14:00)',
+    'wx-err':'Weather unavailable. Please check CWA.',
+    'map-info-html':'<strong>📍 Kuanji Temple</strong> — Jinguashi, Ruifang, New Taipei (bus terminus)<br><strong>🚶 Trailhead</strong> — 3 min walk right of the temple plaza<br><strong>🅿️ Parking</strong> — Paid parking lots near Kuanji Temple<br><strong>🚽 Restrooms</strong> — Near the temple and near the summit<br><strong>🛒 Supplies</strong> — Convenience stores in Jinguashi village'
+  }
+};
+
+function t(k) {
+  return (I[lang] && I[lang][k] !== undefined) ? I[lang][k] : (I.zh[k] || k);
+}
+
+var TXT_IDS = [
+  'topbar-title','n-welcome','n-weather','n-bus','n-itin','n-gear','n-map',
+  'h-title','h-sub','c1','c2','c3','c4',
+  'wc-wx','wc-wxd','wc-bus','wc-busd','wc-itin','wc-itind','wc-gear','wc-geard','wc-map','wc-mapd',
+  'a-title','a1','a2','a3','a4',
+  's-weather','s-bus','s-itin','s-gear','s-map',
+  't-go','t-bk','bl-yun','bl-rt','bl-965',
+  'si-dist','si-time','si-tv','si-elev','si-diff','si-dv','si-pick',
+  'ml-1','ml-2','ml-3','ml-3d','ml-4','ml-4d',
+  'l-loading','gear-reset'
+];
+
+function applyLang() {
+  TXT_IDS.forEach(function(k) {
+    var el = document.getElementById(k);
+    if (el && I[lang][k] !== undefined) el.textContent = t(k);
+  });
+  var mi = document.getElementById('map-info');
+  if (mi) mi.innerHTML = t('map-info-html');
+  document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+  try { renderBus(); } catch(e) {}
+  try { renderItin(); } catch(e) {}
+  try { renderGear(); } catch(e) {}
+  if (window._wxData) {
+    try { renderWx(window._wxData); } catch(e) {}
+  }
+}
+
+document.getElementById('langBtn').addEventListener('click', function() {
+  lang = lang === 'zh' ? 'en' : 'zh';
+  applyLang();
+});
+
+/* ── THEME ── */
+(function() {
+  var root = document.documentElement;
+  var btn = document.getElementById('themeBtn');
+  var sun = document.getElementById('ico-sun');
+  var moon = document.getElementById('ico-moon');
+  var dark = matchMedia('(prefers-color-scheme:dark)').matches;
+  function ap() {
+    root.setAttribute('data-theme', dark ? 'dark' : 'light');
+    sun.style.display = dark ? 'none' : 'block';
+    moon.style.display = dark ? 'block' : 'none';
+  }
+  ap();
+  btn.addEventListener('click', function() { dark = !dark; ap(); });
+})();
+
+/* ── TIMESTAMP ── */
+function fmtTs() {
+  var n = new Date();
+  var p = function(x) { return String(x).padStart(2, '0'); };
+  return n.getFullYear() + '/' + p(n.getMonth()+1) + '/' + p(n.getDate()) + ' ' + p(n.getHours()) + ':' + p(n.getMinutes()) + ':' + p(n.getSeconds());
+}
+setInterval(function() {
+  var ts = fmtTs();
+  ['gts','wx-ts','bus-ts','itin-ts'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = ts;
+  });
+}, 1000);
+
+/* ── NAVIGATION ── */
+function goPage(id) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.bi').forEach(function(b) { b.classList.remove('active'); });
+  var pg = document.getElementById('page-' + id);
+  var bn = document.querySelector('[data-pg="' + id + '"]');
+  if (pg) pg.classList.add('active');
+  if (bn) bn.classList.add('active');
+  if (id === 'weather') fetchWeather();
+  if (id === 'bus') renderBus();
+  if (id === 'itin') renderItin();
+  if (id === 'gear') renderGear();
+}
+
+/* ── BUS DATA ── */
+var GO = ["07:50","08:15","08:30","09:10","09:30","10:00","10:15","10:30","10:45","11:15","11:30","12:10","12:40","13:10","14:10","14:40","15:10","15:30","15:50","16:10","16:25","16:40","17:25","18:30","18:55","19:10"];
+var BK = ["07:00","07:30","08:00","08:25","09:00","09:30","09:55","10:30","11:00","11:30","12:00","12:30","13:05","13:30","14:00","14:30","15:00","15:05","15:30","16:00","16:30","17:00","17:30","18:00","18:30","19:10"];
+var GO_REC = "08:30", BK_REC = "13:05";
+
+function get7(sched, rec) {
+  var now = new Date();
+  var isDay = now.getFullYear() === 2026 && now.getMonth() === 3 && now.getDate() === 12;
+  var refMin = isDay ? (now.getHours()*60 + now.getMinutes()) : (8*60);
+  var en = sched.map(function(tt) {
+    var p = tt.split(':');
+    return { t: tt, sm: parseInt(p[0])*60 + parseInt(p[1]), rec: tt === rec };
+  });
+  var ni = -1;
+  for (var i = 0; i < en.length; i++) {
+    if (en[i].sm >= refMin) { ni = i; break; }
+  }
+  if (ni < 0) ni = en.length - 1;
+  var s = ni - 3, e = ni + 3;
+  if (s < 0) { e = Math.min(en.length-1, e + (-s)); s = 0; }
+  if (e >= en.length) { s = Math.max(0, s - (e - (en.length-1))); e = en.length-1; }
+  return en.slice(s, e+1).map(function(x, idx) {
+    return { t: x.t, sm: x.sm, rec: x.rec, status: x.sm < refMin ? 'past' : (idx === ni-s ? 'next' : 'upcoming') };
+  });
+}
+
+function renderBusPane(bodyId, sched, rec, dk) {
+  var el = document.getElementById(bodyId);
+  if (!el) return;
+  try {
+    var rows = get7(sched, rec);
+    var h = '<table class="bt"><thead><tr><th>' + t('col-dep') + '</th><th>' + t('col-dir') + '</th><th>' + t('col-st') + '</th><th>' + t('col-note') + '</th></tr></thead><tbody>';
+    rows.forEach(function(r) {
+      var ip = r.status === 'past', inx = r.status === 'next';
+      var cls = (r.rec ? 'rr ' : '') + (ip ? 'rp' : inx ? 'rn' : '');
+      var badge = ip
+        ? '<span class="badge bg-a">' + t('st-past') + '</span>'
+        : inx
+        ? '<span class="badge bg-g">' + t('st-next') + '</span>'
+        : '<span class="badge bg-b">' + t('st-up') + '</span>';
+      var note = r.rec ? '<span class="badge bg-s">⭐ ' + (lang==='zh'?'推薦':'Rec') + '</span>' : '—';
+      h += '<tr class="' + cls + '"><td><strong>' + r.t + '</strong></td><td>' + t(dk) + '</td><td>' + badge + '</td><td>' + note + '</td></tr>';
+    });
+    h += '</tbody></table>';
+    h += '<p class="bnote">' + t('bus-note') + '</p>';
+    el.innerHTML = h;
+  } catch(err) {
+    el.innerHTML = '<div class="err">⚠️ ' + (lang==='zh'?'時刻表載入失敗':'Load failed') + '</div>';
+  }
+}
+
+function renderBus() {
+  renderBusPane('body-go', GO, GO_REC, 'dest-go');
+  renderBusPane('body-bk', BK, BK_REC, 'dest-bk');
+  var el = document.getElementById('bus-ts');
+  if (el) el.textContent = fmtTs();
+}
+setInterval(renderBus, 60000);
+
+function switchTab(dir) {
+  ['go','bk'].forEach(function(d) {
+    var tabEl = document.getElementById('tab-' + d);
+    var paneEl = document.getElementById('pane-' + d);
+    if (tabEl) { tabEl.className = 'tab' + (d === dir ? ' on' : ''); tabEl.setAttribute('aria-selected', d === dir ? 'true' : 'false'); }
+    if (paneEl) paneEl.className = 'tp' + (d === dir ? ' on' : '');
+  });
+}
+
+/* ── WEATHER ── */
+window._wxData = null;
+var WMO = {
+  0:{zh:'晴天',en:'Clear',e:'☀️'}, 1:{zh:'大致晴朗',en:'Mostly Clear',e:'🌤'}, 2:{zh:'局部多雲',en:'Partly Cloudy',e:'⛅'},
+  3:{zh:'多雲',en:'Overcast',e:'☁️'}, 45:{zh:'霧',en:'Fog',e:'🌫'}, 51:{zh:'毛毛雨',en:'Drizzle',e:'🌦'},
+  61:{zh:'小雨',en:'Light Rain',e:'🌧'}, 63:{zh:'中雨',en:'Rain',e:'🌧'}, 65:{zh:'大雨',en:'Heavy Rain',e:'⛈'},
+  80:{zh:'陣雨',en:'Showers',e:'🌦'}, 95:{zh:'雷雨',en:'Storm',e:'⛈'}, 99:{zh:'強雷雨',en:'Heavy Storm',e:'⛈'}
+};
+function wmo(c) { return WMO[c] || {zh:'未知',en:'Unknown',e:'❓'}; }
+
+function fetchWeather() {
+  var body = document.getElementById('wx-body');
+  if (!body) return;
+  if (window._wxData) { renderWx(window._wxData); return; }
+  body.innerHTML = '<div class="loading"><span class="spin"></span>' + t('l-loading') + '</div>';
+  var url = 'https://api.open-meteo.com/v1/forecast?latitude=25.1034&longitude=121.8621' +
+    '&current=temperature_2m,apparent_temperature,precipitation_probability,windspeed_10m,relativehumidity_2m,weathercode' +
+    '&hourly=temperature_2m,precipitation_probability,weathercode' +
+    '&timezone=Asia%2FTaipei&forecast_days=7';
+  fetch(url, { cache: 'no-cache' })
+    .then(function(r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function(data) {
+      window._wxData = data;
+      renderWx(data);
+      var el = document.getElementById('wx-ts');
+      if (el) el.textContent = fmtTs();
+    })
+    .catch(function() {
+      var body2 = document.getElementById('wx-body');
+      if (body2) body2.innerHTML = '<div class="err">⚠️ ' + t('wx-err') + '<br><br>' +
+        '<a href="https://www.cwa.gov.tw/V8/C/W/Town/Town.html?TID=1010310" target="_blank" rel="noopener noreferrer" style="color:var(--pri)">→ ' +
+        (lang==='zh'?'開啟中央氣象署':'Open CWA Weather') + '</a></div>';
+    });
+}
+
+function renderWx(data) {
+  var body = document.getElementById('wx-body');
+  if (!body) return;
+  try {
+    var cur = data.current, w = wmo(cur.weathercode);
+    var times = data.hourly.time, hrs = [];
+    for (var i = 0; i < times.length; i++) {
+      var d = new Date(times[i]);
+      if (d.getFullYear()===2026 && d.getMonth()===3 && d.getDate()===12 && d.getHours()>=8 && d.getHours()<=14) {
+        hrs.push({ d: d, i: i, h: d.getHours() });
+      }
+    }
+    var h = '<div class="wxg">' +
+      '<div class="wxbig"><div class="wxe">' + w.e + '</div><div class="wxt">' + Math.round(cur.temperature_2m) + '°C</div><div class="wxd">' + (lang==='zh'?w.zh:w.en) + '</div></div>' +
+      '<div class="wxms">' +
+        '<div class="wxm"><div class="wxml">' + t('wx-feels') + '</div><div class="wxmv">' + Math.round(cur.apparent_temperature) + '°</div></div>' +
+        '<div class="wxm"><div class="wxml">' + t('wx-rain') + '</div><div class="wxmv">' + cur.precipitation_probability + '%</div></div>' +
+        '<div class="wxm"><div class="wxml">' + t('wx-wind') + '</div><div class="wxmv">' + Math.round(cur.windspeed_10m) + 'km/h</div></div>' +
+        '<div class="wxm"><div class="wxml">' + t('wx-humid') + '</div><div class="wxmv">' + cur.relativehumidity_2m + '%</div></div>' +
+      '</div>' +
+    '</div>';
+    if (hrs.length > 0) {
+      h += '<div class="wxh"><div class="wxht">' + t('wx-htitle') + '</div><div class="wxhl">';
+      hrs.forEach(function(x) {
+        var hw = wmo(data.hourly.weathercode[x.i]);
+        h += '<div class="wxhr">' +
+          '<div class="wxhrt">' + String(x.h).padStart(2,'0') + ':00</div>' +
+          '<div class="wxhre">' + hw.e + '</div>' +
+          '<div class="wxhrc">' + Math.round(data.hourly.temperature_2m[x.i]) + '°</div>' +
+          '<div class="wxhrr">💧' + data.hourly.precipitation_probability[x.i] + '%</div>' +
+        '</div>';
+      });
+      h += '</div></div>';
+    }
+    body.innerHTML = h;
+  } catch(e) {
+    var body3 = document.getElementById('wx-body');
+    if (body3) body3.innerHTML = '<div class="err">⚠️ ' + t('wx-err') + '</div>';
+  }
+}
+
+/* ── ITINERARY ── */
+var TRAIL = [
+  {icon:'🏙',zh_p:'台北集合出發',en_p:'Gather in Taipei',zh_d:'捷運忠孝復興站集合，確認 7 人到齊、裝備完整。',en_d:'Meet at MRT Zhongxiao Fuxing. Confirm all 7 and gear.',dist:'—',offset:-60,dur_zh:'',dur_en:''},
+  {icon:'🚌',zh_p:'搭 1062 公車出發',en_p:'Board Bus 1062',zh_d:'忠孝復興站出發往瑞芳金瓜石，車程約 1.5 小時。',en_d:'Depart to Ruifang/Jinguashi (~90 min).',dist:'—',offset:0,dur_zh:'車程約90min',dur_en:'~90 min ride'},
+  {icon:'⛩️',zh_p:'抵達勸濟堂站',en_p:'Arrive Kuanji Temple',zh_d:'下車後使用廁所、補水。廟右側步行 3 分鐘至登山口。',en_d:'Use restrooms, fill water. Trailhead 3 min walk.',dist:'0 km',offset:95,dur_zh:'',dur_en:''},
+  {icon:'🥾',zh_p:'登山口出發',en_p:'Start Hiking',zh_d:'初段平緩柏油路與碎石路，適合暖身。',en_d:'Gentle start — paved and gravel path. Good warm-up.',dist:'0 km',offset:100,dur_zh:'',dur_en:''},
+  {icon:'⛺',zh_p:'朝寶亭（中途涼亭）',en_p:'Chaobao Pavilion',zh_d:'休息 5 分鐘補水，視野漸開，可遠眺基隆山。',en_d:'Rest 5 min & fill water. Views of Keelung Mtn open up.',dist:'~0.9km',offset:130,dur_zh:'+30 min',dur_en:'+30 min'},
+  {icon:'🦁',zh_p:'寶獅亭（獅子岩）',en_p:'Lion Rock Pavilion',zh_d:'巨石景觀開始，此後出現岩石攀爬路段，需手腳並用。',en_d:'Rock scrambling begins — use hands and feet.',dist:'~1.3km',offset:150,dur_zh:'+50 min',dur_en:'+50 min'},
+  {icon:'🫖',zh_p:'茶壺山頂 588m 🏆',en_p:'Summit: Teapot Mtn 588m 🏆',zh_d:'360° 全景！俯瞰金瓜石礦區、基隆山及東北角海岸。建議停留 20 分鐘。',en_d:'360° panorama! Jinguashi ruins, Keelung Mtn & NE coast. Stay 20 min.',dist:'~1.6km',offset:170,dur_zh:'+70 min 🏆',dur_en:'+70 min 🏆'},
+  {icon:'🔄',zh_p:'開始下山',en_p:'Begin Descent',zh_d:'原路折返，下山約 40–50 分鐘。岩石路注意防滑。',en_d:'Return same route. ~40–50 min descent. Watch for slippery rocks.',dist:'',offset:210,dur_zh:'下山段',dur_en:'Descent'},
+  {icon:'⛩️',zh_p:'回到勸濟堂',en_p:'Back at Kuanji Temple',zh_d:'完成！廟旁有小吃攤可午餐，準備搭回程公車。',en_d:'Hike done! Grab lunch at food stalls. Prep for return bus.',dist:'3.2km',offset:255,dur_zh:'午餐休息',dur_en:'Lunch & Rest'},
+  {icon:'🚌',zh_p:'搭 1062 返台北',en_p:'Bus 1062 Back to Taipei',zh_d:'推薦搭 13:05 班次 ⭐，車程約 1.5 小時。',en_d:'Recommended: 13:05 bus ⭐. ~90 min back to Taipei.',dist:'',offset:260,dur_zh:'車程約90min',dur_en:'~90 min ride'}
+];
+
+function addMin(hhmm, mins) {
+  var p = hhmm.split(':');
+  var total = parseInt(p[0])*60 + parseInt(p[1]) + mins;
+  var t2 = ((total % 1440) + 1440) % 1440;
+  return String(Math.floor(t2/60)).padStart(2,'0') + ':' + String(t2%60).padStart(2,'0');
+}
+
+function renderItin() {
+  var sel = document.getElementById('sched-sel');
+  var el = document.getElementById('itin-body');
+  if (!sel || !el) return;
+  try {
+    var dep = sel.value;
+    var now = new Date();
+    var isDay = now.getFullYear()===2026 && now.getMonth()===3 && now.getDate()===12;
+    var curMin = isDay ? (now.getHours()*60 + now.getMinutes()) : -999;
+    el.innerHTML = TRAIL.map(function(s, i) {
+      var ts = addMin(dep, s.offset);
+      var p2 = ts.split(':');
+      var sm = parseInt(p2[0])*60 + parseInt(p2[1]);
+      var isNow = isDay && sm <= curMin && (sm+40) > curMin;
+      var isLast = i === TRAIL.length - 1;
+      var place = lang==='zh' ? s.zh_p : s.en_p;
+      var desc = lang==='zh' ? s.zh_d : s.en_d;
+      var dur = lang==='zh' ? s.dur_zh : s.dur_en;
+      return '<div class="ir' + (isNow ? ' now' : '') + '">' +
+        '<div class="irl"><div class="irt">' + ts + '</div>' + (dur ? '<div class="irid">' + dur + '</div>' : '') + '</div>' +
+        '<div class="irc"><div class="idot">' + s.icon + '</div>' + (isLast ? '' : '<div class="iline"></div>') + '</div>' +
+        '<div class="irr"><div class="irp">' + place + '</div>' +
+        (s.dist && s.dist !== '—' ? '<div class="irm">📏 ' + s.dist + '</div>' : '') +
+        '<div class="ird2">' + desc + '</div></div></div>';
+    }).join('');
+    var ts2 = document.getElementById('itin-ts');
+    if (ts2) ts2.textContent = fmtTs();
+  } catch(e) {
+    var el2 = document.getElementById('itin-body');
+    if (el2) el2.innerHTML = '<div class="err">⚠️ ' + (lang==='zh'?'行程載入失敗':'Load failed') + '</div>';
+  }
+}
+setInterval(renderItin, 60000);
+
+/* ── GEAR ── */
+var GDATA = [
+  {zh_t:'👤 個人必備',en_t:'👤 Personal Essentials',items:[
+    {e:'👟',zh:'防滑登山鞋',en:'Non-slip hiking shoes'},
+    {e:'👕',zh:'排汗速乾衣',en:'Moisture-wicking top'},
+    {e:'🧴',zh:'防曬乳 SPF50+',en:'Sunscreen SPF50+'},
+    {e:'🧢',zh:'帽子/遮陽帽',en:'Hat / cap'},
+    {e:'💧',zh:'飲水 1.5L',en:'Water 1.5L'},
+    {e:'🍱',zh:'午餐/行動糧',en:'Packed lunch'},
+    {e:'📱',zh:'手機（充飽電）',en:'Fully charged phone'},
+    {e:'🔋',zh:'行動電源',en:'Power bank'},
+    {e:'💰',zh:'現金（公車備用）',en:'Cash (bus backup)'}
+  ]},
+  {zh_t:'👥 團隊共用',en_t:'👥 Group Shared',items:[
+    {e:'🩹',zh:'急救包',en:'First aid kit'},
+    {e:'☂️',zh:'輕便雨衣（2件）',en:'Rain ponchos (×2)'},
+    {e:'🗺',zh:'步道地圖（離線）',en:'Trail map (offline)'},
+    {e:'🔦',zh:'手電筒（備用）',en:'Flashlight (backup)'}
+  ]},
+  {zh_t:'📲 App 準備',en_t:'📲 App Setup',items:[
+    {e:'🏔',zh:'健行筆記 App',en:'Hiking Notes App'},
+    {e:'☁️',zh:'中央氣象署',en:'CWA Weather App'},
+    {e:'🚌',zh:'雲端公車動態',en:'Yunbus Live'},
+    {e:'📍',zh:'Google Maps 離線',en:'Google Maps offline'}
+  ]}
+];
+var gDone = {};
+
+function renderGear() {
+  var el = document.getElementById('gear-body');
+  if (!el) return;
+  el.innerHTML = GDATA.map(function(sec, si) {
+    var title = lang==='zh' ? sec.zh_t : sec.en_t;
+    var items = sec.items.map(function(item, ii) {
+      var key = si + '-' + ii, done = gDone[key], text = lang==='zh' ? item.zh : item.en;
+      return '<div class="gi' + (done?' done':'') + '" onclick="toggleGear(\'' + key + '\')" role="checkbox" aria-checked="' + (done?'true':'false') + '">' +
+        '<span class="ge" aria-hidden="true">' + item.e + '</span><span class="gt">' + text + '</span></div>';
+    }).join('');
+    return '<div class="gsec"><div class="gtitle">' + title + '</div><div class="gg">' + items + '</div></div>';
+  }).join('');
+}
+
+function toggleGear(key) { gDone[key] = !gDone[key]; renderGear(); }
+function resetGear() { gDone = {}; renderGear(); }
+
+/* ── INIT ── */
+(function() {
+  try { renderBus(); } catch(e) { console.warn('bus init', e); }
+  try { renderItin(); } catch(e) { console.warn('itin init', e); }
+  try { renderGear(); } catch(e) { console.warn('gear init', e); }
+})();
+</script>
+</body>
+</html>
