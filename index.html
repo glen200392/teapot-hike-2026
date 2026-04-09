@@ -168,11 +168,49 @@ img,svg{display:block}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-@media(min-width:520px){
-  html{background:var(--surf2)}
-  [data-theme="dark"] html{background:#0e0d0c}
-  body{max-width:480px;margin:0 auto;box-shadow:0 0 0 1px var(--bdr),0 8px 48px rgba(0,0,0,.14)}
-  .bnav{left:50%;transform:translateX(-50%);width:480px;border-radius:var(--rad) var(--rad) 0 0}
+@media(min-width:768px){
+  /* ── DESKTOP: Left sidebar layout ── */
+  body{padding-left:200px;padding-bottom:0}
+
+  /* Transform bottom nav → left sidebar */
+  .bnav{
+    top:0;bottom:0;right:auto;
+    width:200px;
+    border-top:none;border-right:1px solid var(--bdr);
+    padding-bottom:0;overflow-y:auto;
+  }
+  /* Sidebar brand header */
+  .bnav::before{
+    content:'🫖';
+    display:block;height:50px;line-height:50px;
+    padding:0 20px;font-size:1.4rem;
+    border-bottom:1px solid var(--bdr);
+    background:var(--surf);
+  }
+  /* Sidebar nav items: vertical list */
+  .bni{grid-template-columns:1fr;padding:8px;gap:2px}
+  .bi{
+    flex-direction:row;justify-content:flex-start;
+    padding:11px 16px;gap:10px;
+    font-size:.85rem;border-radius:var(--rs);
+    min-height:44px;
+  }
+  .bicon{font-size:1.05rem;width:22px;text-align:center;flex-shrink:0}
+
+  /* Content area */
+  .page{padding:24px 28px 32px}
+  .hero{padding:28px 24px}
+
+  /* Wider grids on desktop */
+  .wg{grid-template-columns:repeat(4,1fr)}
+  .wxg{grid-template-columns:200px 1fr}
+  .wxms{grid-template-columns:repeat(2,1fr)}
+  .gg{grid-template-columns:repeat(3,1fr)}
+  .mlinks{grid-template-columns:repeat(4,1fr)}
+  .stats{grid-template-columns:repeat(4,1fr)}
+
+  /* Bus tabs: natural width */
+  .tabs{max-width:480px}
 }
 </style>
 </head>
