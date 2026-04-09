@@ -169,8 +169,14 @@ img,svg{display:block}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 @media(min-width:768px){
-  /* ── DESKTOP: Left sidebar layout ── */
-  body{padding-left:200px;padding-bottom:0}
+  /* ── DESKTOP: base font scale-up ── */
+  html{font-size:18px}
+  body{font-size:15px;padding-left:200px;padding-bottom:0}
+
+  /* Cap elements that become too large at 18px root */
+  .wxe{font-size:2.2rem}
+  .wxt{font-size:1.7rem}
+  .htitle{font-size:1.35rem}
 
   /* Transform bottom nav → left sidebar */
   .bnav{
@@ -183,7 +189,7 @@ img,svg{display:block}
   .bnav::before{
     content:'🫖';
     display:block;height:50px;line-height:50px;
-    padding:0 20px;font-size:1.4rem;
+    padding:0 20px;font-size:1.3rem;
     border-bottom:1px solid var(--bdr);
     background:var(--surf);
   }
@@ -195,7 +201,7 @@ img,svg{display:block}
     font-size:.85rem;border-radius:var(--rs);
     min-height:44px;
   }
-  .bicon{font-size:1.05rem;width:22px;text-align:center;flex-shrink:0}
+  .bicon{font-size:1rem;width:22px;text-align:center;flex-shrink:0}
 
   /* Content area */
   .page{padding:24px 28px 32px}
