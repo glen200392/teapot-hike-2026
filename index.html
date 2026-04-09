@@ -463,8 +463,7 @@ var GO_REC = "08:30", BK_REC = "13:05";
 
 function get7(sched, rec) {
   var now = new Date();
-  var isDay = now.getFullYear() === 2026 && now.getMonth() === 3 && now.getDate() === 12;
-  var refMin = isDay ? (now.getHours()*60 + now.getMinutes()) : (8*60);
+  var refMin = now.getHours()*60 + now.getMinutes();
   var en = sched.map(function(tt) {
     var p = tt.split(':');
     return { t: tt, sm: parseInt(p[0])*60 + parseInt(p[1]), rec: tt === rec };
@@ -568,9 +567,10 @@ function renderWx(data) {
   try {
     var cur = data.current, w = wmo(cur.weathercode);
     var times = data.hourly.time, hrs = [];
+    var tnow = new Date(), ty = tnow.getFullYear(), tm = tnow.getMonth(), td = tnow.getDate(), th = tnow.getHours();
     for (var i = 0; i < times.length; i++) {
       var d = new Date(times[i]);
-      if (d.getFullYear()===2026 && d.getMonth()===3 && d.getDate()===12 && d.getHours()>=8 && d.getHours()<=14) {
+      if (d.getFullYear()===ty && d.getMonth()===tm && d.getDate()===td && d.getHours()>=th && d.getHours()<=th+6) {
         hrs.push({ d: d, i: i, h: d.getHours() });
       }
     }
@@ -584,7 +584,9 @@ function renderWx(data) {
       '</div>' +
     '</div>';
     if (hrs.length > 0) {
-      h += '<div class="wxh"><div class="wxht">' + t('wx-htitle') + '</div><div class="wxhl">';
+      var hEnd = Math.min(th+6, 23);
+      var hLabel = '📊 ' + (lang==='zh' ? '接下來逐小時' : 'Next Hours') + '（' + String(th).padStart(2,'0') + ':00–' + String(hEnd).padStart(2,'0') + ':00）';
+      h += '<div class="wxh"><div class="wxht">' + hLabel + '</div><div class="wxhl">';
       hrs.forEach(function(x) {
         var hw = wmo(data.hourly.weathercode[x.i]);
         h += '<div class="wxhr">' +
@@ -631,8 +633,7 @@ function renderItin() {
   try {
     var dep = sel.value;
     var now = new Date();
-    var isDay = now.getFullYear()===2026 && now.getMonth()===3 && now.getDate()===12;
-    var curMin = isDay ? (now.getHours()*60 + now.getMinutes()) : -999;
+    var curMin = now.getHours()*60 + now.getMinutes();
     el.innerHTML = TRAIL.map(function(s, i) {
       var ts = addMin(dep, s.offset);
       var p2 = ts.split(':');
